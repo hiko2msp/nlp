@@ -11,7 +11,7 @@
   + bag of wordsを使ってロジスティック回帰でテキスト分類を行うデモ
 + Word2Vec
   + Word2Vecについて
-  + Word2Vecを使って分類モデルを作る
+  + Word2Vecを使ったデモ
 + LSTMについて
   + LSTMの説明
 
@@ -151,16 +151,29 @@
   + 類義語・
 + 参考文献
   + [Word2Vec のニューラルネットワーク学習過程を理解する](http://tkengo.github.io/blog/2016/05/09/understand-how-to-learn-word2vec/)
+  + [models.word2vec – Deep learning with word2vec](https://radimrehurek.com/gensim/models/word2vec.html)
+  + [Word2Vec Tutorial Part II: The Continuous Bag-of-Words Model](http://mccormickml.com/assets/word2vec/Alex_Minnaar_Word2Vec_Tutorial_Part_II_The_Continuous_Bag-of-Words_Model.pdf)
 
 + ツール
   + [fasttext](https://github.com/facebookresearch/fastText)
   + [gensim](https://radimrehurek.com/gensim/tut1.html)
   + [spyCy](https://spacy.io/)
 
-### Word2Vecの学習
+### Word2Vecを使ったデモ
 
-+ [Word2Vec のニューラルネットワーク学習過程を理解する](http://tkengo.github.io/blog/2016/05/09/understand-how-to-learn-word2vec/)
-+ [Word2Vec Tutorial Part II: The Continuous Bag-of-Words Model](http://mccormickml.com/assets/word2vec/Alex_Minnaar_Word2Vec_Tutorial_Part_II_The_Continuous_Bag-of-Words_Model.pdf)
+[プログラム](word2vec_similarity.py)
+
++ 準備
+
+  ```
+  pip install gensim
+  pip install pyemd
+  ```
+
++ 夏目漱石の小説(吾輩は猫である, 坊っちゃん)のテキストを使って、WordVectorを学習します
++ 二つの小説について、それぞれテキスト内の単語のベクトルを平均して、ドキュメントベクトルを作ります
++ 入力した文字列についても、単語のベクトルの平均ベクトルを計算します。
++ 類似度を求めて、入力した文字列が、どちらの小説と似ているかを出力します
 
 
 ### LSTM
