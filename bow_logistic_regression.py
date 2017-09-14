@@ -36,11 +36,14 @@ result_df = pd.DataFrame([
     (token, reg.coef_[0][token_id]) for token_id, token in dictionary.iteritems()
 ])
 result_df.columns = ['token', 'coef']
+print('学習したパラメータ(特徴的なもの)')
 print(result_df.ix[result_df['coef'].abs() > 0.1].sort_values('coef'))
 
 # 経済の記事かどうかを予測
 
 input_text = '東芝は１３日、半導体子会社「東芝メモリ」の売却について、政府系の産業革新機構や米ファンドのベインキャピタル、韓国半導体のＳＫハイニックスなどの「日米韓連合」と、９月下旬の契約締結を目指して覚書を結んだ、と発表した。ただ、日米韓連合を「排他的な交渉先としない」ともしており、他の売却先も引き続き検討する模様だ。'
+print('入力テキスト:')
+print(input_text)
 
 input_bow = dictionary.doc2bow(list(token_generator(input_text)))
 test_x = matutils.corpus2csc([input_bow], X.shape[1]).transpose()

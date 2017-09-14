@@ -9,10 +9,11 @@
     + 類似度・距離の説明
     + 類似度をつかったデモ
   + bag of wordsを使ってロジスティック回帰でテキスト分類を行うデモ
-+ Word2Vecの説明
-+ Word2Vecを使って分類モデルを作る
-+ corpusの説明
-+ LSTMの説明
++ Word2Vec
+  + Word2Vecについて
+  + Word2Vecを使って分類モデルを作る
++ LSTMについて
+  + LSTMの説明
 
 ## 基礎の復習
 
@@ -77,6 +78,17 @@
 + 入力した文字列もBag of Wordsに変換します
 + 入力した文字列が、どちらの小説と似ているかを出力します
 
++ 出力
+
+  ```
+  Found and verified 789_ruby_5639.zip
+  Found and verified 752_ruby_2438.zip
+  入力文字: 吾輩は犬である
+  候補の小説:
+  ['吾輩は猫である', '坊っちゃん']
+  最も似ている小説: 吾輩は猫である
+  ```
+
 ### bag of wordsを使ってロジスティック回帰でテキスト分類を行うデモ
 
 [プログラム](bow_logistic_regression.py)
@@ -96,7 +108,34 @@
 + ラベルをつけた教師データを使って、経済の記事かどうかを分類するロジスティック回帰モデルを学習します
 + 別の記事が入ってきたときに、その記事が経済の記事かどうかを分類します
 
++ 出力
+
+  ```
+  $ python bow_logistic_regression.py
+  学習したパラメータ(特徴的なもの)
+      token      coef
+  40      ３ -0.236599
+  147     目 -0.214302
+  32      士 -0.142868
+  103     ２ -0.118300
+  50     連合  0.107633
+  5       日  0.120704
+  28      米  0.125380
+  97     13  0.131370
+  42    テレビ  0.133517
+  98     転倒  0.133517
+  111     件  0.133517
+  110    東芝  0.143511
+  16      の  0.165101
+  入力テキスト:
+  東芝は１３日、半導体子会社「東芝メモリ」の売却について、政府系の産業革新機構や 米ファンドのベインキャピタル、韓国半導体のＳＫハイニックスなどの「日米韓連合」 と、９月下旬の契約締結を目指して覚書を結んだ、と発表した。ただ、日米韓連合を「 排他的な交渉先としない」ともしており、他の売却先も引き続き検討する模様だ。
+  ['経済でない', '経済']
+  [ 0.19917571  0.80082429]
+  ```
+
 ## Word2Vec
+
+### Word2Vecの説明
 
 + Word2Vecは効率的に、機械学習のために使えるベクトルを学習することができる
 + Word2Vecには大きく2つのアプローチがある
@@ -106,30 +145,33 @@
   + Skip-gram model
     + Skip-gramはsource context wordsを対象の単語から予測する
     + context-targetペアを新しい観測としてあつかうので、データ集合が大きい時に有用である
-+ Bag of WordsやTfIDFとの違い
-  + 
 + 応用例
   + 基本的にはTfIDFで学習したベクトルと同じ使い方ができる
   + テキスト分類
   + 類義語・
++ 参考文献
+  + [Word2Vec のニューラルネットワーク学習過程を理解する](http://tkengo.github.io/blog/2016/05/09/understand-how-to-learn-word2vec/)
+
++ ツール
+  + [fasttext](https://github.com/facebookresearch/fastText)
+  + [gensim](https://radimrehurek.com/gensim/tut1.html)
+  + [spyCy](https://spacy.io/)
 
 ### Word2Vecの学習
 
 + [Word2Vec のニューラルネットワーク学習過程を理解する](http://tkengo.github.io/blog/2016/05/09/understand-how-to-learn-word2vec/)
 + [Word2Vec Tutorial Part II: The Continuous Bag-of-Words Model](http://mccormickml.com/assets/word2vec/Alex_Minnaar_Word2Vec_Tutorial_Part_II_The_Continuous_Bag-of-Words_Model.pdf)
 
-+ fasttext
 
 ### LSTM
 
 + 言語の生成モデル。前の単語列から、次の単語を予測する
-+ [わかるLSTM](http://qiita.com/t_Signull/items/21b82be280b46f467d1b)
-
-
-+ 翻訳などに利用される
-+ 言語の生成モデルを学習することができる
-  + 言語の生成モデルとは？過去の文字列から、次の文字列を生成するモデル
-
++ 応用例
+  + 翻訳などに利用される
+  + 音声認識
+  + 画像からのキャプション生成
++ 参考文献
+  + [わかるLSTM](http://qiita.com/t_Signull/items/21b82be280b46f467d1b)
 
 ### 参考文献
 
