@@ -12,8 +12,9 @@ doc_list = [
     list(token_generator('パナソニックは13日、国内で販売した液晶テレビ計約11万台について、テレビ本体が転倒する恐れがあるとしてリコール（無料点検・部品交換）を行うと発表した。子どもの体に当たる事故があった1件を含め、転倒などに伴い計12件の修理を既に実施。けが人はいないという。')),
     list(token_generator('３日目に立ち合いのミスで自滅した横綱・日馬富士は、東前頭２枚目・北勝富士に不覚を取り、連敗で通算３７個目の金星を配給した。')),
     list(token_generator('日本ハム・大谷翔平投手（２３）が今オフ、右足かかと部分にある「三角骨骨棘（こっきょく）」の除去手術を受ける見込みとなっていることが１３日、分かった。昨秋から悩まされていた右足首痛の原因となっていた。また、今季終了後にポスティングシステムを利用して、米大リーグに挑戦することが同日、濃厚となった。昨年１２月の契約更改交渉で、球団も本人の意思を尊重することを表明しており、シーズン終了後に本人と話し合い、最終的な決断を下す。')),
+    list(token_generator('東芝が、「日米韓連合」を軸に東芝メモリの売却交渉に臨む方針に転じたのは、本命だった「日米連合」を主導するＷＤが条件闘争で譲らず、合意が難しいと判断したからだ。債務超過の解消に残された時間の少ない東芝の弱みを見透かし、強気な姿勢を貫くＷＤへの不信感が改めて浮き彫りになった。ただ、日米韓連合と契約しても、東芝がＷＤとの訴訟に負ければ売却自体が暗礁に乗り上げる。')),
 ]
-category_list = ['経済', '経済', 'スポーツ', 'スポーツ']
+category_list = ['経済', '経済', '経済でない', '経済でない', '経済']
 
 dictionary = corpora.Dictionary(doc_list)
 
@@ -24,7 +25,7 @@ corpus = [dictionary.doc2bow(doc) for doc in doc_list]
 
 doc_matrix = matutils.corpus2csc(corpus).transpose()
 X = doc_matrix
-y = np.array([1, 1, 0, 0])
+y = np.array([1, 1, 0, 0, 1])
 
 reg = LogisticRegression()
 reg.fit(X, y)
@@ -45,5 +46,5 @@ input_bow = dictionary.doc2bow(list(token_generator(input_text)))
 test_x = matutils.corpus2csc([input_bow], X.shape[1]).transpose()
 pred_y = reg.predict_proba(test_x)
 
-print(['スポーツ', '経済'])
+print(['経済でない', '経済'])
 print(pred_y[0])
