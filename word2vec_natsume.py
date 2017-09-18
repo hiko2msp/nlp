@@ -29,7 +29,7 @@ from six.moves import urllib
 from six.moves import xrange  # pylint: disable=redefined-builtin
 import tensorflow as tf
 
-from text_loader import token_generator, read_data
+from natsume_loader import token_generator, read_data
 
 
 vocabulary = list(token_generator(read_data('789_ruby_5639.zip')))
