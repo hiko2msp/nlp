@@ -294,16 +294,16 @@ class SmallConfig(object):
 
 class MediumConfig(object):
   """Medium config."""
-  init_scale = 0.05
+  init_scale = 0.1
   learning_rate = 1.0
   max_grad_norm = 5
   num_layers = 2
-  num_steps = 35
-  hidden_size = 650
-  max_epoch = 6
-  max_max_epoch = 39
-  keep_prob = 0.5
-  lr_decay = 0.8
+  num_steps = 20
+  hidden_size = 200
+  max_epoch = 4
+  max_max_epoch = 13
+  keep_prob = 1.0
+  lr_decay = 0.5
   batch_size = 20
   vocab_size = 10000
   rnn_mode = BLOCK
