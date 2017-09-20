@@ -56,8 +56,6 @@ def predict_next_word(session, input_text, data, reuse=False):
     input_data = [word_to_id[word] for word in input_token_list if word in word_to_id]
 
     with tf.device('/cpu:0'): 
-        batch_size = 1
-
         # データの準備
         model = get_model(num_steps=len(input_data), reuse=reuse, input_data=data)
 
@@ -70,7 +68,8 @@ def predict_next_word(session, input_text, data, reuse=False):
     except:
         return '。'
 
-if __name__ == '__main__':
+
+def create_sentence(initial_text):
     data = tf.placeholder(tf.int32, shape=[None])
     model = get_model(data, reuse=False)
     saver = tf.train.Saver()
@@ -80,13 +79,22 @@ if __name__ == '__main__':
             
             saver.restore(session, ckpt.model_checkpoint_path)
 
-        input_text = '吾輩は'
+        sentense = initial_text
         next_word = ''
+
+        # 。が生成された時に文章生成を止める
         while next_word != '。':
-            print(input_text)
-            next_word = predict_next_word(session, input_text, data, reuse=True)
-            if input_text.endswith(next_word):
-                input_text += '。'
+            next_word = predict_next_word(session, sentense, data, reuse=True)
+
+            # 同じ文字が連続する場合は終了させる
+            if sentense.endswith(next_word):
+                sentense += '。'
                 break
-            input_text = input_text + next_word
-        print(input_text)
+            sentense += next_word
+    return sentense
+
+
+if __name__ == '__main__':
+    input_text = '吾輩は' # 初期テキスト
+    print('初期テキスト:', input_text)
+    print('生成された文章:', create_sentence(input_text))

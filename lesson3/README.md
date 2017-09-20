@@ -75,9 +75,8 @@ Found and verified 773_ruby_5968.zip
 
 ```
 $ python predict_next_word.py
-吾輩は
-吾輩は人並
-吾輩は人並。
+初期テキスト: 吾輩は
+生成された文章: 吾輩は蛮風。
 ```
 
 ## 課題
