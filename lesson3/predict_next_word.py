@@ -63,6 +63,8 @@ def predict_next_word(session, input_text, data, reuse=False):
             feed_dict={data: input_data}
         )
     
+    print('input:', input_token_list)
+    print('output:', [id_to_word[token_id] for token_id in token_id_list])
     try:
         return id_to_word[token_id_list[-1]]
     except:
@@ -95,6 +97,6 @@ def create_sentence(initial_text):
 
 
 if __name__ == '__main__':
-    input_text = '吾輩は' # 初期テキスト
+    input_text = '今日は'
     print('初期テキスト:', input_text)
     print('生成された文章:', create_sentence(input_text))

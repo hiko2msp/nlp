@@ -12,6 +12,7 @@ def _build_vocab(token_list):
     counter = Counter(token_list)
     count_pairs = counter.most_common()
     words, _ = list(zip(*count_pairs))
+    words = words[:10000]
     word_to_id = dict(zip(words, range(len(words))))
     return word_to_id
 

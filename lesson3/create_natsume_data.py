@@ -22,10 +22,10 @@ def maybe_download(filename, expected_bytes):
         'Failed to verify ' + filename + '. Can you get to it with a browser?')
   return filename
 
-ruby_match = re.compile(r'《.*》')
-brace_match = re.compile(r'［.*］')
+ruby_match = re.compile(r'《.*?》')
+brace_match = re.compile(r'［.*?］')
 stop_words = re.compile(r'[「」\r]')
-expranation_match = re.compile(r'-{10,}[^-]*-{10,}')
+explanation_match = re.compile(r'-{10,}[^-]*-{10,}')
 
 def read_data(filename):
     """Extract the first file enclosed in a zip file as a list of words."""
@@ -35,7 +35,7 @@ def read_data(filename):
         text = ruby_match.sub('', text)
         text = brace_match.sub('', text)
         text = stop_words.sub('', text)
-        text = expranation_match.sub('', text)
+        text = explanation_match.sub('', text)
     return text
 
 def token_generator(text):
