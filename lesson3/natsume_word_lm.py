@@ -175,10 +175,11 @@ class NATSUMEModel(object):
     # different than reported in the paper.
     # cell = self._get_lstm_cell(config, is_training)
     def get_cell():
-        return self._get_lstm_cell(config, is_training)
-    if is_training and config.keep_prob < 1:
-      cell = tf.contrib.rnn.DropoutWrapper(
-          cell, output_keep_prob=config.keep_prob)
+        cell = self._get_lstm_cell(config, is_training)
+        if is_training and config.keep_prob < 1:
+          cell = tf.contrib.rnn.DropoutWrapper(
+              cell, output_keep_prob=config.keep_prob)
+        return cell
 
     cell = tf.contrib.rnn.MultiRNNCell(
         [get_cell() for _ in range(config.num_layers)], state_is_tuple=True)
