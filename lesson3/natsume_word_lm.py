@@ -173,13 +173,15 @@ class NATSUMEModel(object):
     # Slightly better results can be obtained with forget gate biases
     # initialized to 1 but the hyperparameters of the model would need to be
     # different than reported in the paper.
-    cell = self._get_lstm_cell(config, is_training)
+    # cell = self._get_lstm_cell(config, is_training)
+    def get_cell():
+        return self._get_lstm_cell(config, is_training)
     if is_training and config.keep_prob < 1:
       cell = tf.contrib.rnn.DropoutWrapper(
           cell, output_keep_prob=config.keep_prob)
 
     cell = tf.contrib.rnn.MultiRNNCell(
-        [cell for _ in range(config.num_layers)], state_is_tuple=True)
+        [get_cell() for _ in range(config.num_layers)], state_is_tuple=True)
 
     self._initial_state = cell.zero_state(config.batch_size, data_type())
     state = self._initial_state
@@ -294,6 +296,22 @@ class SmallConfig(object):
 
 class MediumConfig(object):
   """Medium config."""
+  init_scale = 0.04
+  learning_rate = 1.0
+  max_grad_norm = 10
+  num_layers = 2
+  num_steps = 35
+  hidden_size = 1500
+  max_epoch = 14
+  max_max_epoch = 55
+  keep_prob = 0.35
+  lr_decay = 1 / 1.15
+  batch_size = 20
+  vocab_size = 10000
+  rnn_mode = BLOCK
+
+
+class LargeConfig(object):
   init_scale = 0.1
   learning_rate = 1.0
   max_grad_norm = 5
@@ -307,9 +325,6 @@ class MediumConfig(object):
   batch_size = 20
   vocab_size = 10000
   rnn_mode = BLOCK
-
-
-class LargeConfig(object):
   """Large config."""
   init_scale = 0.04
   learning_rate = 1.0
